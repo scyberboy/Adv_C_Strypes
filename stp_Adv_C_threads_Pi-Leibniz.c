@@ -4,7 +4,7 @@
 #include <math.h>
 #include <unistd.h>
 
-#define NUM_THREADS 3
+#define NUM_THREADS 11
 
 const double precision = 1e-12;
 double fPi = 0.0;
@@ -37,7 +37,7 @@ void * worker_func( void * t_data )
 
 
    // we have to return a pointer to the thread's data, otherwise the join won't get correct stuff !
-   return t_data; //w_res_ptr;
+   return NULL;
 }
 
 
@@ -45,7 +45,6 @@ int main (int argc, char* argv[])
 {
 	int i = 0;
 	thread_data thr_data[NUM_THREADS] = {{0}};
-	void *th_result = NULL;
 
 	// spawn the threads
 	for( i = 0 ; i < NUM_THREADS ; i++ )
@@ -67,8 +66,8 @@ int main (int argc, char* argv[])
 	// loop thru thread's data and add each result (join all threads)
 	for( i = 0 ; i < NUM_THREADS ; i++ )
 	{
-	   pthread_join( thr_data[i].th_id, &th_result );
-	   thread_data *l_res_ptr = (thread_data *) th_result;
+	   pthread_join( thr_data[i].th_id, NULL );
+	   thread_data *l_res_ptr = &thr_data[i];
 	   
 	   fPi += l_res_ptr->result;
 
