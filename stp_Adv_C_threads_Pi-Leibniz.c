@@ -6,20 +6,16 @@
 
 #define NUM_THREADS 8
 
-const double precision = 1e-12;
-double fPi = 0.0;
-
-
+const double precision = 0.25e-11;
 
 typedef struct thread_data_t
 {
-   pthread_t th_id;
+	pthread_t th_id;
 	int th_num;
 	float sign;
 	int divisor;
 	double result;
 } thread_data;
-
 
 void * worker_func( void * t_data )
 {
@@ -43,6 +39,7 @@ int main (int argc, char* argv[])
 {
 	int i = 0;
 	thread_data thr_data[NUM_THREADS] = {{0}};
+	double fPi = 0.0;
 
 	// spawn the threads
 	for( i = 0 ; i < NUM_THREADS ; i++ )
@@ -69,11 +66,10 @@ int main (int argc, char* argv[])
 	   
 	   fPi += l_res_ptr->result;
 
-	   printf( "Worker %d(%p) yields %.11g ==> 1/4th of fPi(%.11g)\n", l_res_ptr->th_num, l_res_ptr, l_res_ptr->result, fPi );
-	   
+	   printf( "Worker %d(%p) yields %.11g ==> 1/4th of fPi(%.11g)\n", l_res_ptr->th_num, l_res_ptr, l_res_ptr->result, fPi );	   
 	}
 
-	printf( "finish: fPi(%.12g)\n", 4.0 * fPi );
+	printf( "finish: fPi(%.11g)\n", 4.0 * fPi );
 
 	return 0;
 }
