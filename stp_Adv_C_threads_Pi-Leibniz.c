@@ -6,7 +6,7 @@
 
 #define NUM_THREADS 8
 
-const double precision = 0.25e-11;
+const double precision = 0.249e-11;
 
 typedef struct thread_data_t
 {
@@ -69,7 +69,7 @@ int main (int argc, char* argv[])
 	   printf( "Worker %d(%p) yields %.11g ==> 1/4th of fPi(%.11g)\n", l_res_ptr->th_num, l_res_ptr, l_res_ptr->result, fPi );	   
 	}
 
-	printf( "finish: fPi(%.11g)\n", 4.0 * fPi );
+	printf( "finish: fPi(%.12g)\n", 4.0 * fPi );
 
 	return 0;
 }
